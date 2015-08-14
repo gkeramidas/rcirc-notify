@@ -93,10 +93,11 @@
   :group 'rcirc
   )
 
-(defcustom rcirc-notify-message "%s mentioned you: %s"
+(defcustom rcirc-notify-message "%s mentioned you in %s: %s"
   "Format of the message to display in the popup.
 The first %s will expand to the nick that notified you,
-the second %s (if any) will expand to the message text itself."
+the second %s will expand to the channel name,
+the third %s will expand to the message text itself."
   :type '(string)
   :group 'rcirc-notify)
 
@@ -106,11 +107,11 @@ See `rcirc-notify-keyword' for the message format to use."
   :type '(boolean)
   :group 'rcirc-notify)
 
-(defcustom rcirc-notify-keyword "%s mentioned the keyword '%s': %s"
+(defcustom rcirc-notify-keyword "%s mentioned the keyword '%s' in %s"
   "Format of the message to display in the popup.
 The first %s will expand to the nick that mentioned the keyword,
-the second %s (if any) will expand to the keyword used,
-the third %s (if any) will expand to the message text itself.
+the second %s will expand to the keyword used,
+the third %s will expand to the channel name.
 This only happens if `rcirc-notify-keywords' is non-nil."
   :type '(string)
   :group 'rcirc-notify)
@@ -118,7 +119,7 @@ This only happens if `rcirc-notify-keywords' is non-nil."
 (defcustom rcirc-notify-message-private "%s sent a private message: %s"
   "Format of the message to display in the popup.
 The first %s will expand to the nick that notified you,
-the second %s (if any) will expand to the message text itself."
+the second %s will expand to the message text itself."
   :type '(string)
   :group 'rcirc-notify)
 
@@ -176,13 +177,13 @@ then this controls the timeout of that popup."
                                 user-full-name (current-time-string))))
 
 
-(defun rcirc-notify (sender &optional text)
+(defun rcirc-notify (sender target &optional text)
   (when window-system
     ;; Set default dir to appease the notification gods
     (let ((default-directory "~/"))
-      (rcirc-notify-page-me (format rcirc-notify-message sender text)))))
+      (rcirc-notify-page-me (format rcirc-notify-message sender target text)))))
 
-(defun rcirc-notify-keyword (sender &optional keyword text)
+(defun rcirc-notify-keyword (sender target &optional keyword text)
   (when window-system
     ;; Set default dir to appease the notification gods
     (let ((default-directory "~/"))
@@ -221,7 +222,7 @@ matches the current nick."
              (rcirc-channel-p target)
              (rcirc-notify-allowed sender))
     (cond ((string-match (rcirc-nick proc) text)
-           (rcirc-notify sender text))
+           (rcirc-notify sender target text))
           (rcirc-notify-keywords
            (let ((keyword (catch 'match
                             (dolist (key rcirc-keywords)
@@ -229,7 +230,7 @@ matches the current nick."
                                                   text)
                                 (throw 'match key))))))
              (when keyword
-               (rcirc-notify-keyword sender keyword text)))))))
+               (rcirc-notify-keyword sender target keyword text)))))))
 
 ;;;###autoload
 (defun rcirc-notify-privmsg (proc sender response target text)
