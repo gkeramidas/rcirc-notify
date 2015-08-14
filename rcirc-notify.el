@@ -98,15 +98,13 @@
 The first %s will expand to the nick that notified you,
 the second %s (if any) will expand to the message text itself."
   :type '(string)
-  :group 'rcirc-notify
-  )
+  :group 'rcirc-notify)
 
 (defcustom rcirc-notify-keywords t
   "Non-nil means matches of `rcirc-keywords' will result in notification.
 See `rcirc-notify-keyword' for the message format to use."
   :type '(boolean)
-  :group 'rcirc-notify
-  )
+  :group 'rcirc-notify)
 
 (defcustom rcirc-notify-keyword "%s mentioned the keyword '%s': %s"
   "Format of the message to display in the popup.
@@ -115,34 +113,29 @@ the second %s (if any) will expand to the keyword used,
 the third %s (if any) will expand to the message text itself.
 This only happens if `rcirc-notify-keywords' is non-nil."
   :type '(string)
-  :group 'rcirc-notify
-  )
+  :group 'rcirc-notify)
 
 (defcustom rcirc-notify-message-private "%s sent a private message: %s"
   "Format of the message to display in the popup.
 The first %s will expand to the nick that notified you,
 the second %s (if any) will expand to the message text itself."
   :type '(string)
-  :group 'rcirc-notify
-  )
+  :group 'rcirc-notify)
 
 (defcustom rcirc-notify-popup-timeout 8640000
   "Number of seconds to show the notifcation popup, if relevant.
 If the notification is done via an operating system popup message
 then this controls the timeout of that popup."
   :type '(integer)
-  :group 'rcirc-notify
-  )
+  :group 'rcirc-notify)
 
 (defcustom rcirc-notify-timeout 60
   "Seconds between notifications from the same person."
   :type '(integer)
-  :group 'rcirc-notify
-  )
+  :group 'rcirc-notify)
 
 (defvar rcirc-notify--nick-alist nil
-  "An alist of nicks and the last time they tried to trigger a notification."
-  )
+  "An alist of nicks and the last time they tried to trigger a notification.")
 
 (defvar rcirc-notify-page-me-hooks nil
   "Hook functions called when rcirc-notify sends a notification.")
