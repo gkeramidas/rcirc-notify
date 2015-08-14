@@ -93,7 +93,7 @@
   :group 'rcirc
   )
 
-(defcustom rcirc-notify-message "%s mentioned you in %s: %s"
+(defcustom rcirc-notify-message "%s in %s: %s"
   "Format of the message to display in the popup.
 The first %s will expand to the nick that notified you,
 the second %s will expand to the channel name,
@@ -107,7 +107,7 @@ See `rcirc-notify-keyword' for the message format to use."
   :type '(boolean)
   :group 'rcirc-notify)
 
-(defcustom rcirc-notify-keyword "%s mentioned the keyword '%s' in %s"
+(defcustom rcirc-notify-keyword "%s mentioned '%s' in %s"
   "Format of the message to display in the popup.
 The first %s will expand to the nick that mentioned the keyword,
 the second %s will expand to the keyword used,
@@ -116,7 +116,7 @@ This only happens if `rcirc-notify-keywords' is non-nil."
   :type '(string)
   :group 'rcirc-notify)
 
-(defcustom rcirc-notify-message-private "%s sent a private message: %s"
+(defcustom rcirc-notify-message-private "%s: %s"
   "Format of the message to display in the popup.
 The first %s will expand to the nick that notified you,
 the second %s will expand to the message text itself."
