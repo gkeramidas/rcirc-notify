@@ -143,32 +143,11 @@ then this controls the timeout of that popup."
 
 (defun rcirc-notify-page-me (msg)
   (run-hook-with-args 'rcirc-notify-page-me-hooks msg)
-  (cond
-    ((executable-find "notify-send")
-     (start-process "page-me" nil
-                    ;; 8640000 ms = 1 day
-                    "notify-send" "-u" "normal" "-i" "emacs" "-a" "emacs"
-                    "-c" "im.received"
-                    "-t" (format "%s" rcirc-notify-popup-timeout) "rcirc"
-                    msg))
-    ((executable-find "terminal-notify")
-     (start-process "page-me" "*debug*" "terminal-notify" "-activate" "org.gnu.Emacs" "-message" msg))
-    ((executable-find "terminal-notifier")
-     (start-process "page-me" "*debug*" "terminal-notifier" "-title" "rcirc" "-sender" "org.gnu.Emacs" "-activate" "org.gnu.Emacs" "-message" msg))
-    ((executable-find "growlnotify.exe")
-     (start-process "page-me" "*debug*" "growlnotify.exe" "/a:Emacs" "/n:IRC" msg))
-    ((executable-find "growlnotify")
-     (start-process "page-me" "*debug*" "growlnotify" "-a" "Emacs" "-m" msg))
-    ((executable-find "osascript")
-     (apply 'start-process `("page-me" nil
-                             "osascript"
-                             "-e" "tell application \"GrowlHelperApp\""
-                             "-e" "register as application \"Emacs\" all notifications {\"rcirc\"} default notifications {\"rcirc\"}"
-                             "-e" ,(concat "notify with name \"rcirc\" title \"rcirc\" description \""
-                                           msg "\" application name \"Emacs\"")
-                             "-e" "end tell")))
-    (t (error "No method available to page you."))))
-
+  (start-process "page-me" "*debug*" "terminal-notifier"
+		 "-title" "rcirc"
+		 "-sender" "org.gnu.Emacs"
+		 "-activate" "org.gnu.Emacs"
+		 "-message" msg))
 
 (defun rcirc-notify-page-test ()
   "Test the notify system."
