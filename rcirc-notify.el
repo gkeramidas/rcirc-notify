@@ -157,22 +157,19 @@ then this controls the timeout of that popup."
 
 
 (defun rcirc-notify (sender target &optional text)
-  (when window-system
-    ;; Set default dir to appease the notification gods
-    (let ((default-directory "~/"))
-      (rcirc-notify-page-me (format rcirc-notify-message sender target text)))))
+  ;; Set default dir to appease the notification gods
+  (let ((default-directory "~/"))
+    (rcirc-notify-page-me (format rcirc-notify-message sender target text))))
 
 (defun rcirc-notify-keyword (sender target &optional keyword text)
-  (when window-system
-    ;; Set default dir to appease the notification gods
-    (let ((default-directory "~/"))
-      (rcirc-notify-page-me (format rcirc-notify-keyword sender keyword text)))))
+  ;; Set default dir to appease the notification gods
+  (let ((default-directory "~/"))
+    (rcirc-notify-page-me (format rcirc-notify-keyword sender keyword text))))
 
 (defun rcirc-notify-private (sender &optional text)
-  (when window-system
-    ;; Set default dir to appease the notification gods
-    (let ((default-directory "~/"))
-      (rcirc-notify-page-me (format rcirc-notify-message-private sender text)))))
+  ;; Set default dir to appease the notification gods
+  (let ((default-directory "~/"))
+    (rcirc-notify-page-me (format rcirc-notify-message-private sender text))))
 
 (defun rcirc-notify-allowed (nick &optional delay)
   "Return non-nil if a notification should be made for NICK.
